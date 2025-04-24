@@ -1,60 +1,52 @@
 orientadores = {}
 alunos = []
 
-def cadastrar_orientador(nome: str, orientadores: dict):
+def cadastrar_orientador(orientadores: dict):
+    nome = input("Digite o nome do orientador: ")
     orientadores[nome] = []
 
-def cadastrar_aluno(nome: str, matricula: int, orientador: str, lista):
+def cadastrar_aluno(alunos):
+    nome = input("Digite o nome do aluno: ")
+    matricula = int(input("Digite a matrícula do aluno: "))
+    orientador = input("Digite o nome do orientador do aluno: ")
     aluno = {
         "nome": nome,
         "matricula": matricula,
         "orientador": orientador,
         "entregas": []
     }
-    lista.append(aluno)
+    alunos.append(aluno)
 
-
-def encontrar_aluno_por_matricula(matricula: int, lista):
-    for aluno in lista:
+def encontrar_aluno_por_matricula(alunos):
+    matricula = int(input("Digite a matrícula do aluno: "))
+    for aluno in alunos:
         if aluno["matricula"] == matricula:
             return aluno
     return None
 
-
-def cadastrar_entrega(matricula: int, versao: str, data: str, lista):
-    aluno = encontrar_aluno_por_matricula(matricula, lista)
+def cadastrar_entrega(alunos):
+    versao = input("Digite a versão da entrega: ")
+    data = input("Digite a data da entrega (Ano/Mês/Dia): ")
+    aluno = encontrar_aluno_por_matricula(alunos)
     if aluno is not None:
         entrega = (versao, data)
         aluno["entregas"].append(entrega)
     else:
-        return f"Aluno com matrícula {matricula} não encontrado."
-    
+        print("Aluno não encontrado.")
 
-def cadastrar_nota(matricula: int, nota: int, lista):
-    aluno = encontrar_aluno_por_matricula(matricula, lista)
-    if aluno and aluno["entregas"]:
-        ultima_entrega = aluno["entregas"][-1]
-        nova_entrega = (ultima_entrega[0], ultima_entrega[1], nota)
-        aluno["entregas"][-1] = nova_entrega
-
+def cadastrar_nota(alunos):
+    nota = float(input("Digite a nota: "))
+    aluno = encontrar_aluno_por_matricula(alunos)
+    if aluno is not None:
+        aluno["nota"] = nota
+    else:
+        print("Aluno não encontrado.")
 
 # Testando se tá funcionando
-cadastrar_orientador("Prof Teste", orientadores)
-print(orientadores)
-cadastrar_orientador("Prof 2", orientadores)
-print(orientadores)
+print("Cadastrando orientador")
+cadastrar_orientador(orientadores)
+print(f"Orientadores - {orientadores}")
 
-cadastrar_aluno("Gustavo", 19, "Prof Gustavo", alunos)
-print(alunos)
-cadastrar_aluno("Maria", 20, "Prof Caio", alunos)
-print(alunos)
-
-cadastrar_entrega(19, "v1", "2025-04-23", alunos)
-print(alunos)
-cadastrar_entrega(20, "v1", "2025-04-22", alunos)
-print(alunos)
-
-cadastrar_nota(19, 8, alunos)
-print(alunos)
-cadastrar_nota(20, 9, alunos)
-print(alunos)   
+print("Cadastrando aluno")
+cadastrar_aluno(alunos)
+print(f"Alunos - {alunos}")
