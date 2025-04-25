@@ -11,4 +11,4 @@ Cada aluno deve entregar versões do seu TCC, que são avaliadas por orientadore
 - Gustavo Henrique  
 - Daniel Victor  
 - Vinicius Press  
-- Miguel Piroli 
+- Miguel Pires
